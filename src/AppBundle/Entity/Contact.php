@@ -2,17 +2,58 @@
 
 namespace AppBundle\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * Class Contact
  *
  * @package AppBundle\Entity
+ *
+ * @ORM\Entity
+ * @ORM\Table(name="contact")
  */
 class Contact
 {
+    /**
+     * @ORM\Column(type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
     private $id        = null;
+    /**
+     * @ORM\Column(type="string")
+     *
+     * @Assert\NotBlank()
+     * @Assert\Email(
+     *     checkMX = true
+     * )
+     */
     private $email     = null;
+    /**
+     * @ORM\Column(type="string", length=400)
+     *
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *     max="400"
+     * )
+     */
     private $text      = null;
+    /**
+     * @ORM\Column(type="string", length=255)
+     *
+     * @Assert\Length(
+     *     max="255"
+     * )
+     */
     private $firstName = null;
+    /**
+     * @ORM\Column(type="string", length=255)
+     *
+     * @Assert\Length(
+     *     max="255"
+     * )
+     */
     private $lastName  = null;
 
     /**
