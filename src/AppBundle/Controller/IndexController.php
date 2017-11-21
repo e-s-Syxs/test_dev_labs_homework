@@ -2,20 +2,24 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+/**
+ * Class IndexController
+ * @package AppBundle\Controller
+ */
 class IndexController extends Controller
 {
-
     /**
+     * @return \Symfony\Component\HttpFoundation\Response
      *
      * @Route("/", name="homepage")
      */
     public function indexAction()
     {
         return $this->render(
-            "default/index.html.twig"
+            'index.html.twig'
         );
     }
 }

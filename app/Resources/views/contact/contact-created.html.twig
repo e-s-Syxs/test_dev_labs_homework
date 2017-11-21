@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact created{% endblock %}
+
+{% block body %}
+    <h2>Success</h2>
+    <p>Contact created successfully, you will be redirected back to homepage in 5 seconds</p>
+{% endblock %}
+{% block javascripts %}
+    <script>
+        setTimeout(function () {
+            window.location.href = '/'
+        }, 5000)
+    </script>
+{%  endblock %}

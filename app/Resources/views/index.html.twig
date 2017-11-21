@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Main Page{% endblock %}
+
+{% block body %}
+    <h2>JSON</h2>
+    <p>to test json api response please make a post request to /contact/json, use postman for example </p>
+    <h2>HTML FORM</h2>
+    <p>to test html form please go to route <a href={{ path("contact_html") }}>/contact/html</a></p>
+{% endblock %}

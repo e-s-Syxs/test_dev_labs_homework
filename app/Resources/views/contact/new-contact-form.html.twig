@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Basic html form to create contact{% endblock %}
+
+{% block body %}
+    {{ form(form, {'attr': {'novalidate': 'novalidate'}}) }}
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+{% endblock %}

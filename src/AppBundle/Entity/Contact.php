@@ -57,21 +57,9 @@ class Contact
     private $lastName  = null;
 
     /**
-     * Contact constructor.
-     *
-     * @param string $email
-     * @param string $text
+     * @return null|string
      */
-    public function __construct(string $email = 'aa', string $text = 'bb')
-    {
-        $this->email = $email;
-        $this->text  = $text;
-    }
-
-    /**
-     * @return string
-     */
-    public function getEmail() : string
+    public function getEmail()
     {
         return $this->email;
     }
@@ -85,7 +73,7 @@ class Contact
     }
 
     /**
-     * @return string
+     * @return null|string
      */
     public function getText()
     {
@@ -101,7 +89,7 @@ class Contact
     }
 
     /**
-     * @return string
+     * @return null|string
      */
     public function getFirstName()
     {
@@ -117,7 +105,7 @@ class Contact
     }
 
     /**
-     * @return string
+     * @return null|string
      */
     public function getLastName()
     {

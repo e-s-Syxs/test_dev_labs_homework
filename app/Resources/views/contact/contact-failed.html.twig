@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact not created!{% endblock %}
+
+{% block body %}
+    <h2>Following errors occurred</h2>
+    <ul>
+        {% for error in errors %}
+            <li> {{ error.propertyPath }}: {{ error.message }}</li>
+        {% endfor %}
+    </ul>
+    <p><a href={{ path("contact_html") }}>retry</a></p>
+    <p><a href={{ path("homepage") }}>homepage</a></p>
+{% endblock %}

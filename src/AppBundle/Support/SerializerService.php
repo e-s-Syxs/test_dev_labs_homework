@@ -1,6 +1,5 @@
 <?php
 
-
 namespace AppBundle\Support;
 
 use AppBundle\Entity\Contact;
@@ -8,7 +7,6 @@ use Symfony\Component\Serializer\Encoder\JsonDecode;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
-
 
 /**
  * Class Serializer

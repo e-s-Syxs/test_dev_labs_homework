@@ -3,11 +3,10 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Contact;
+use AppBundle\Form\ContactType;
 use AppBundle\Handle\ContactHandle;
-use AppBundle\Support\SerializerService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -20,61 +19,54 @@ class ContactController extends Controller
     /**
      * @param Request $request
      * @param ContactHandle $contactHandle
-     * @param SerializerService $serializer
-     * @return JsonResponse
      *
-     * @Route("/contact/json", name="contact_json")
-     */
-    public function createContactJsonAction(
-        Request $request,
-        ContactHandle $contactHandle,
-        SerializerService $serializer
-    )
-    {
-        /** @var Contact $contact */
-        $contact   = $serializer->deserializeJson($request->getContent(), Contact::class);
-        $errors    = $this->get('validator')->validate($contact);
-
-        if (count($errors) > 0) {
-
-            $errorsString = (string)$errors;
-
-            return new JsonResponse($errorsString);
-        }
-
-        $contactHandle->handle($contact);
-
-        return new JsonResponse('contact-created', 201);
-    }
-
-    /**
-     * @param Request $request
-     * @param ContactHandle $contactHandle
-     * @param SerializerService $serializer
-     * @return JsonResponse
+     * @return \Symfony\Component\HttpFoundation\Response
      *
      * @Route("/contact/html", name="contact_html")
      */
     public function createContactHtmlAction(
         Request $request,
-        ContactHandle $contactHandle,
-        SerializerService $serializer
+        ContactHandle $contactHandle
     )
     {
-        /** @var Contact $contact */
-        $contact   = $serializer->deserializeJson($request->getContent(), Contact::class);
+        $contact = new Contact();
+        $form    = $this->createForm(ContactType::class, $contact);
 
-        $errors    = $this->get('validator')->validate($contact);
+        $form->handleRequest($request);
 
-        if (count($errors) > 0) {
+        if ($form->isSubmitted()) {
 
-            $errorsString = (string)$errors;
+            $contact = $form->getData();
+            $errors  = $this->get('validator')->validate($contact);
 
-            return new JsonResponse($errorsString);
+            if (count($errors) > 0) {
+
+                return $this->render(
+                    'contact/contact-failed.html.twig',
+                    ['errors' => $errors]
+                );
+            }
+
+            $contactHandle->handle($contact);
+
+            return $this->redirectToRoute('contact_created');
         }
 
-        $contactHandle->handle($contact);
+        return $this->render(
+            'contact/new-contact-form.html.twig',
+            ['form' => $form->createView()]
+        );
+    }
 
-        return new JsonResponse('contact-created', 201);
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @Route("/contact/created", name="contact_created")
+     */
+    public function contactCreateAction()
+    {
+        return $this->render(
+            'contact/contact-created.html.twig'
+        );
     }
 }
