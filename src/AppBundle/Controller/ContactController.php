@@ -25,26 +25,56 @@ class ContactController extends Controller
      *
      * @Route("/contact/json", name="contact_json")
      */
-    public function createContentJsonAction(
+    public function createContactJsonAction(
         Request $request,
         ContactHandle $contactHandle,
         SerializerService $serializer
-)
+    )
     {
         /** @var Contact $contact */
         $contact   = $serializer->deserializeJson($request->getContent(), Contact::class);
-        $validator = $this->get('validator');
-        $errors    = $validator->validate($contact);
+        $errors    = $this->get('validator')->validate($contact);
 
         if (count($errors) > 0) {
 
-            $errorsString = (string) $errors;
+            $errorsString = (string)$errors;
+
             return new JsonResponse($errorsString);
         }
 
         $contactHandle->handle($contact);
 
-        new JsonResponse('contact-created', 201);
+        return new JsonResponse('contact-created', 201);
     }
 
+    /**
+     * @param Request $request
+     * @param ContactHandle $contactHandle
+     * @param SerializerService $serializer
+     * @return JsonResponse
+     *
+     * @Route("/contact/html", name="contact_html")
+     */
+    public function createContactHtmlAction(
+        Request $request,
+        ContactHandle $contactHandle,
+        SerializerService $serializer
+    )
+    {
+        /** @var Contact $contact */
+        $contact   = $serializer->deserializeJson($request->getContent(), Contact::class);
+
+        $errors    = $this->get('validator')->validate($contact);
+
+        if (count($errors) > 0) {
+
+            $errorsString = (string)$errors;
+
+            return new JsonResponse($errorsString);
+        }
+
+        $contactHandle->handle($contact);
+
+        return new JsonResponse('contact-created', 201);
+    }
 }
