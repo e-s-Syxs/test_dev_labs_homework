@@ -30,10 +30,6 @@ class ResponseBuilder
         /** @var ConstraintViolation $error */
         foreach ($errors as $key => $error) {
 
-            if (false === ($error InstanceOf ConstraintViolation)) {
-            throw new InvalidArgumentException('$error must be instance of ConstraintViolation');
-            }
-
             $response['errors'][$key]['field'] = $error->getPropertyPath();
             $response['errors'][$key]['message'] = $error->getMessage();
         }

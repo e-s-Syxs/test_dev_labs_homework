@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
  * Class IndexController
+ *
  * @package AppBundle\Controller
  */
 class IndexController extends Controller
